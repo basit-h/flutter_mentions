@@ -412,14 +412,14 @@ class FlutterMentionsState extends State<FlutterMentions> {
         : widget.mentions[0];
 
     return Container(
-      child: PortalEntry(
-        portalAnchor: widget.suggestionPosition == SuggestionPosition.Bottom
+      child: PortalTarget(
+        anchor: Aligned(follower: widget.suggestionPosition == SuggestionPosition.Bottom
             ? Alignment.topCenter
-            : Alignment.bottomCenter,
-        childAnchor: widget.suggestionPosition == SuggestionPosition.Bottom
+            : Alignment.bottomCenter, target: widget.suggestionPosition == SuggestionPosition.Bottom
             ? Alignment.bottomCenter
-            : Alignment.topCenter,
-        portal: ValueListenableBuilder(
+            : Alignment.topCenter),
+        
+        portalFollower: ValueListenableBuilder(
           valueListenable: showSuggestions,
           builder: (BuildContext context, bool show, Widget? child) {
             return show && !widget.hideSuggestionList
@@ -433,7 +433,7 @@ class FlutterMentionsState extends State<FlutterMentions> {
                           .toLowerCase()
                           .replaceAll(RegExp(_pattern), '');
 
-                      return ele == str ? false : ele.contains(str);
+                      return  ele.contains(str);
                     }).toList(),
                     onTap: (value) {
                       addMention(value, list);
